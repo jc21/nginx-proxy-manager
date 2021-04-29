@@ -20,12 +20,48 @@ class ProxyHost extends Model {
 			this.domain_names = [];
 		}
 
+		// Default for openidc_discovery
+		if (typeof this.openidc_discovery === 'undefined') {
+			this.openidc_discovery = '';
+		}
+
+		// Default for openidc_client_id
+		if (typeof this.openidc_client_id === 'undefined') {
+			this.openidc_client_id = '';
+		}
+
+		// Default for openidc_client_secret
+		if (typeof this.openidc_client_secret === 'undefined') {
+			this.openidc_client_secret = '';
+		}
+
+		// Default for openidc_discovery
+		if (typeof this.openidc_discovery === 'undefined') {
+			this.openidc_discovery = '';
+		}
+
+		// Default for openidc_redirect_uri
+		if (typeof this.openidc_redirect_uri === 'undefined') {
+			this.openidc_redirect_uri = '';
+		}
+
+		// Default for openidc_allowed_users
+		if (typeof this.openidc_allowed_users === 'undefined') {
+			this.openidc_allowed_users = [];
+		}
+
 		// Default for meta
 		if (typeof this.meta === 'undefined') {
 			this.meta = {};
 		}
 
+		// Openidc defaults
+		if (typeof this.openidc_auth_method === 'undefined') {
+			this.openidc_auth_method = 'client_secret_post';
+		}
+
 		this.domain_names.sort();
+		this.openidc_allowed_users.sort();
 	}
 
 	$beforeUpdate () {
@@ -34,6 +70,11 @@ class ProxyHost extends Model {
 		// Sort domain_names
 		if (typeof this.domain_names !== 'undefined') {
 			this.domain_names.sort();
+		}
+
+		// Sort openidc_allowed_users
+		if (typeof this.openidc_allowed_users !== 'undefined') {
+			this.openidc_allowed_users.sort();
 		}
 	}
 
@@ -46,7 +87,7 @@ class ProxyHost extends Model {
 	}
 
 	static get jsonAttributes () {
-		return ['domain_names', 'meta', 'locations'];
+		return ['domain_names', 'meta', 'locations', 'openidc_allowed_users'];
 	}
 
 	static get relationMappings () {
